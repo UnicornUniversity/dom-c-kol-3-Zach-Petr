@@ -241,8 +241,8 @@ const randomCas = (minimal, maximal) => {
  * @param {object} dtoIn contains count of employees, age limit of employees {min, max}
  * @returns {Array} of employees
  */
-export function main(dtoIn) {
-    const {pocet, vek = {} } = dtoIn;
+export function main(dtoIn = {}) {
+    const {pocet = 50, vek = {} } = dtoIn;
     const {minimal = 19, maximal = 35} = vek;
     const dtoOut = [];
     let sex;
