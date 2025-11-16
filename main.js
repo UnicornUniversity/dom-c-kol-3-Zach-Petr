@@ -99,9 +99,9 @@ const randomCas = (minimal, maximal) => {
         teď.getDate(),0, 0 ,0, 0
     );
     const minvek = new Date(
-        teď.getFullYear() - maximal,
+        teď.getFullYear() - maximal - 1,
         teď.getMonth(),
-        teď.getDate(),0, 0 ,0, 0
+        teď.getDate() + 1,0, 0 ,0, 0
     );
     const randomVek = minvek.getTime() + Math.random() * (maxvek.getTime() - minvek.getTime());
     const vek = new Date(randomVek);
