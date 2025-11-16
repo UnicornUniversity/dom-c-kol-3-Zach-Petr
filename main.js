@@ -108,7 +108,7 @@ const randomCas = (minimal, maximal) => {
     return birthDate.toISOString();
 };
 
-};
+
 
 
 
