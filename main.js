@@ -259,6 +259,7 @@ export function main(dtoIn) {
             birthdate: randomCas(minimal, maximal),
             name: jmeno,
             surname: prijmeniV,
+            workload: randomPrvek(uvazek)
         });
     }
     return dtoOut;
