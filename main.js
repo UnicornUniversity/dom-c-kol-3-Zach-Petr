@@ -93,23 +93,16 @@ funkce pro vytvoření náhodného datumu
 */
 const randomCas = (minVek, maxVek) => {
     const ted = new Date();
-    const minimal = new Date(
-        ted.getFullYear() - maxVek - 1,
-        ted.getMonth(),
-        ted.getDate() + 1,
-        0, 0, 0, 0
-    );
-    const maximal = new Date(
-        ted.getFullYear() - minVek,
-        ted.getMonth(),
-        ted.getDate(),
-        0, 0, 0, 0
-    );
-    const randomDat =
-        minimal.getTime() +
-        Math.random() * (maximal.getTime() - minimal.getTime());
-    const birthDate = new Date(randomDat);
-    return birthDate;
+    const msRok = 1000 * 60 * 60 * 24;
+    const dnyRok = 365.25;
+
+    // Datum, kdy bude osoba nejstarší (maximální věk)
+    const minimal = ted.getTime() - maxVek * dnyRok * msRok;
+    // Datum, kdy bude osoba nejmladší (minimální věk)
+    const maximal = ted.getTime() - minVek * dnyRok * msRok;
+
+    const randomTime = minimal + Math.random() * (maximal - minimal);
+    return new Date(randomTime).toISOString();
 };
 
 
