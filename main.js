@@ -93,16 +93,17 @@ funkce pro vytvoření náhodného datumu
 */
 const randomCas = (minimal, maximal) => {
     const teď = new Date();
+       const minvek = new Date(
+        teď.getFullYear() - maximal - 1,
+        teď.getMonth(),
+        teď.getDate() + 1,0, 0 ,0, 0
+    );
     const maxvek = new Date(
         teď.getFullYear() - minimal,
         teď.getMonth(),
         teď.getDate(),0, 0 ,0, 0
     );
-    const minvek = new Date(
-        teď.getFullYear() - maximal - 1,
-        teď.getMonth(),
-        teď.getDate() + 1,0, 0 ,0, 0
-    );
+ 
     const randomVek = minvek.getTime() + Math.random() * (maxvek.getTime() - minvek.getTime());
     const vek = new Date(randomVek);
     return vek.toISOString();
