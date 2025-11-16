@@ -261,7 +261,7 @@ export function main(dtoIn) {
         }
         dtoOut.push({
             gender: sex,
-            birthday: randomCas(minimal, maximal),
+            birthdate: randomCas(minimal, maximal),
             name: jmeno,
             surname: prijmeniV,
             workload: randomPrvek(uvazek).typZ
