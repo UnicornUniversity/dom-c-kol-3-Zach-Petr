@@ -9,7 +9,7 @@
 *@property {number} vek.maximal - maximální věk
 */
 const dtoIn ={
-    pocet: 50,
+    count: 50,
     vek: {
         minimal: 19,
         maximal: 35
@@ -242,13 +242,13 @@ const randomCas = (minimal, maximal) => {
  * @returns {Array} of employees
  */
 export function main(dtoIn) {
-    const {pocet, vek = {} } = dtoIn;
+    const {count, vek = {} } = dtoIn;
     const {minimal = 19, maximal = 35} = vek;
     const dtoOut = [];
     let sex;
     let jmeno;
     let prijmeniV;
-    for(let i = 0; i < pocet; i++){
+    for(let i = 0; i < count; i++){
         sex = randomPrvek(pohlavi);
         if(sex === "male"){
            prijmeniV = randomPrvek(prijmeni);
