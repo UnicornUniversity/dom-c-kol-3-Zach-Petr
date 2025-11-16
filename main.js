@@ -98,7 +98,7 @@ const randomCas = (minVek, maxVek) => {
     const mini = new Date(
         ted.getFullYear() - maxVek,
         ted.getMonth(),
-        ted.getDate()
+        ted.getDate(),
         0, 0, 0, 0
     );
 
