@@ -267,5 +267,3 @@ export function main(dtoIn) {
     }
     return dtoOut;
 }
-const vysledek = main(dtoIn);
-console.log(vysledek);
