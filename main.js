@@ -91,17 +91,27 @@ funkce pro vytvoření náhodného datumu
 @param {number} minimal - minimální věk
 @param {number} maximal - maximální věk
 */
-const randomCas = (minimal, maximal) => {
-    const today = new Date();
-
-    const maxDate = new Date(today.getFullYear() - minimal, today.getMonth(), today.getDate());
-    const minDate = new Date(today.getFullYear() - maximal, today.getMonth(), today.getDate());
-
-    const randomTime = minDate.getTime() + Math.random() * (maxDate.getTime() - minDate.getTime());
-    const birthDate = new Date(randomTime);
-
-    return birthDate.toISOString();
+const randomCas = (minVek, maxVek) => {
+    const ted = new Date();
+    const minimal = new Date(
+        presentDate.getFullYear() - maxVek - 1,
+        presentDate.getMonth(),
+        presentDate.getDate() + 1,
+        0, 0, 0, 0
+    );
+    const maximal = new Date(
+        presentDate.getFullYear() - minVek,
+        presentDate.getMonth(),
+        presentDate.getDate(),
+        0, 0, 0, 0
+    );
+    const randomDat =
+        minimal.getTime() +
+        Math.random() * (maximal.getTime() - minimal.getTime());
+    const birthDate = new Date(randomDat);
+    return birthDate;
 };
+
 
 
 
