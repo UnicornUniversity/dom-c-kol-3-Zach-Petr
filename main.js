@@ -92,22 +92,23 @@ funkce pro vytvoření náhodného datumu
 @param {number} maximal - maximální věk
 */
 const randomCas = (minimal, maximal) => {
-    const teď = new Date();
-       const minvek = new Date(
-        teď.getFullYear() - maximal - 1,
-        teď.getMonth(),
-        teď.getDate() + 1,0, 0 ,0, 0
-    );
-    const maxvek = new Date(
-        teď.getFullYear() - minimal,
-        teď.getMonth(),
-        teď.getDate(),0, 0 ,0, 0
-    );
- 
-    const randomVek = minvek.getTime() + Math.random() * (maxvek.getTime() - minvek.getTime());
-    const vek = new Date(randomVek);
-    return vek.toISOString();
-}
+    const dnes = new Date();
+    const currentYear = dnes.getFullYear();
+
+    // minimal a maximal jsou věky, takže rok narození = currentYear - věk
+    const maxBirthYear = currentYear - minimal;
+    const minBirthYear = currentYear - maximal;
+
+    // generujeme náhodný rok, měsíc, den
+    const year = Math.floor(Math.random() * (maxBirthYear - minBirthYear + 1)) + minBirthYear;
+    const month = Math.floor(Math.random() * 12); // 0-11
+    const day = Math.floor(Math.random() * 28) + 1; // bezpečně 1-28, aby měsíc vždy seděl
+
+    const birthDate = new Date(year, month, day);
+    return birthDate.toISOString();
+};
+
+};
 
 
 
