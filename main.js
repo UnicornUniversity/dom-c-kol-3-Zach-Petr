@@ -131,7 +131,7 @@ const randomCas = (minVek, maxVek) => {
  * @param {object} dtoIn contains count of employees, age limit of employees {min, max}
  * @returns {Array} of employees
  */
-export function main(dtoIn) {
+const main = (dtoIn) => {
     const {count, vek = {} } = dtoIn;
     const minVek = vek.min ?? 19;
     const maxVek = vek.max ?? 35;
