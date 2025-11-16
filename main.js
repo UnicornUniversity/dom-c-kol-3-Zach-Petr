@@ -96,9 +96,9 @@ const randomCas = (minVek, maxVek) => {
 
     // Datum, kdy bude osoba nejstarší (maximální věk)
     const mini = new Date(
-        ted.getFullYear() - maxVek - 1,
+        ted.getFullYear() - maxVek,
         ted.getMonth(),
-        ted.getDate() + 1,
+        ted.getDate()
         0, 0, 0, 0
     );
 
