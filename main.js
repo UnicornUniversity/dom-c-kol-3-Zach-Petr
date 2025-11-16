@@ -95,22 +95,22 @@ const randomCas = (minVek, maxVek) => {
     const ted = new Date();
 
     // Datum, kdy bude osoba nejstarší (maximální věk)
-    const mini = new Date(
-        ted.getFullYear() - maxVek,
-        ted.getMonth(),
-        ted.getDate(),
+    const mini = Date.UTC(
+        ted.getUTCFullYear() - maxVek,
+        ted.getUTCMonth(),
+        ted.getUTCDate(),
         0, 0, 0, 0
     );
 
     // Datum, kdy bude osoba nejmladší (minimální věk)
-    const maxi = new Date(
-        ted.getFullYear() - minVek,
-        ted.getMonth(),
-        ted.getDate(),
+    const maxi = Date.UTC(
+        ted.getUTCFullYear() - minVek,
+        ted.getUTCMonth(),
+        ted.getUTCDate(),
         0, 0, 0, 0
     );
 
-    const randomTime = mini.getTime() + Math.random() * (maxi.getTime() - mini.getTime());
+    const randomTime = mini + Math.random() * (maxi - mini);
     return new Date(randomTime).toISOString();
 };
 
