@@ -11,8 +11,8 @@
 const dtoIn ={
     count: 50,
     vek: {
-        minimal: 19,
-        maximal: 35
+        min: 19,
+        max: 35
     }
 };
 /**
@@ -243,7 +243,7 @@ const randomCas = (minimal, maximal) => {
  */
 export function main(dtoIn) {
     const {count, vek = {} } = dtoIn;
-    const {minimal = 19, maximal = 35} = vek;
+    const {min: minimal, max: maximal} = vek;
     const dtoOut = [];
     let sex;
     let jmeno;
@@ -251,17 +251,19 @@ export function main(dtoIn) {
     for(let i = 0; i < count; i++){
         sex = randomPrvek(pohlavi);
         if(sex === "male"){
-           prijmeniV = randomPrvek(prijmeni);
-            jmeno = randomPrvek(jmenaM) + " " + prijmeniV[0];
+           prijmeniV = randomPrvek(prijmeni)[0];
+            jmeno = randomPrvek(jmenaM);
+        
         }
         else{
-            prijmeniV = randomPrvek(prijmeni);
-            jmeno = randomPrvek(jmenaZ) + " " + prijmeniV[1];
+            prijmeniV = randomPrvek(prijmeni)[1].;
+            jmeno = randomPrvek(jmenaZ);
         }
         dtoOut.push({
             gender: sex,
             birthday: randomCas(minimal, maximal),
             name: jmeno,
+            surname: prijmeniV;
             workload: randomPrvek(uvazek).typZ
         });
     }
