@@ -81,15 +81,12 @@ const jmenaM = [
     "Cyril",
     "Dalibor",
     "Eduard",
-    "Emilián",
-    "Alex"
 ];
 /**
 *konstanta, ve které jsou uloženy ženská jména
 *@type {string[]}
 */
 const jmenaZ = [
-    "Klára",
     "Jana",
     "Eva",
     "Renata",
@@ -146,8 +143,6 @@ const jmenaZ = [
 *@type {string[[],[]]}
 */
 const prijmeni = [
-    ["Novák", "Nováková"],
-    ["Svoboda", "Svobodová"],
     ["Novotný", "Novotná"],
     ["Dvořák", "Dvořáková"],
     ["Černý", "Černá"],
