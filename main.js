@@ -245,15 +245,8 @@ export function main(dtoIn) {
     let prijmeniV;
     for(let i = 0; i < count; i++){
         sex = randomPrvek(pohlavi);
-        if(sex === "male"){
-           prijmeniV = randomPrvek(prijmeni)[0];
-            jmeno = randomPrvek(jmenaM);
-        
-        }
-        else{
-            prijmeniV = randomPrvek(prijmeni)[1];
-            jmeno = randomPrvek(jmenaZ);
-        }
+     jmeno = sex === "male" ? randomPrvek(jmenaM) : randomPrvek(jmenaZ);
+    prijmeniV = sex === "male" ? randomPrvek(prijmeni)[0] : randomPrvek(prijmeni)[1];
         dtoOut.push({
             gender: sex,
             birthdate: randomCas(minimal, maximal),
