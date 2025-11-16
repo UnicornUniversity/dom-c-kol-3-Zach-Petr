@@ -243,7 +243,7 @@ const randomCas = (minimal, maximal) => {
  */
 export function main(dtoIn) {
     const {pocet , vek} = dtoIn;
-    const {minimal, maximal} = vek;
+    const {minimal = 19, maximal = 35} = vek;
     const dtoOut = [];
     let sex;
     let jmeno;
