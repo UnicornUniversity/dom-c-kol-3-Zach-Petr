@@ -92,21 +92,33 @@ funkce pro vytvoření náhodného datumu
 @param {number} maximal - maximální věk
 */
 const randomCas = (minimal, maximal) => {
+    if (typeof minimal !== 'number' || typeof maximal !== 'number') {
+        throw new Error(`randomCas: minimal nebo maximal není číslo: ${minimal}, ${maximal}`);
+    }
+
     const dnes = new Date();
     const currentYear = dnes.getFullYear();
 
-    // minimal a maximal jsou věky, takže rok narození = currentYear - věk
     const maxBirthYear = currentYear - minimal;
     const minBirthYear = currentYear - maximal;
 
-    // generujeme náhodný rok, měsíc, den
+    if (minBirthYear > maxBirthYear) {
+        throw new Error(`randomCas: minBirthYear větší než maxBirthYear: ${minBirthYear} > ${maxBirthYear}`);
+    }
+
     const year = Math.floor(Math.random() * (maxBirthYear - minBirthYear + 1)) + minBirthYear;
-    const month = Math.floor(Math.random() * 12); // 0-11
-    const day = Math.floor(Math.random() * 28) + 1; // bezpečně 1-28, aby měsíc vždy seděl
+    const month = Math.floor(Math.random() * 12); 
+    const day = Math.floor(Math.random() * 28) + 1; 
 
     const birthDate = new Date(year, month, day);
+
+    if (isNaN(birthDate.getTime())) {
+        throw new Error(`randomCas: nevalidní datum vygenerováno: ${year}-${month}-${day}`);
+    }
+
     return birthDate.toISOString();
 };
+
 
 
 
