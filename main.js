@@ -8,7 +8,7 @@
 *@property {number} vek.minimal -  minimální věk
 *@property {number} vek.maximal - maximální věk
 */
-const dtoIN ={
+const dtoIn ={
     pocet: 50,
     vek: {
         minimal: 19,
@@ -242,7 +242,6 @@ const randomCas = (minimal, maximal) => {
  * @returns {Array} of employees
  */
 export function main(dtoIn) {
-function main(dtoIn){
     const {pocet , vek} = dtoIn;
     const {minimal, maximal} = vek;
     const dtoOut = [];
@@ -265,11 +264,8 @@ function main(dtoIn){
             jmeno: jmeno,
             uvazek: randomPrvek(uvazek).typZ
         });
-
     }
     return dtoOut;
 }
-  return dtoOut;
-}
-const vysledek = main(dtoIN);
+const vysledek = main(dtoIn);
 console.log(vysledek);
