@@ -242,7 +242,7 @@ const randomCas = (minimal, maximal) => {
  * @returns {Array} of employees
  */
 export function main(dtoIn) {
-    const {pocet = 50 , vek = {} } = dtoIn;
+    const {pocet, vek = {} } = dtoIn;
     const {minimal = 19, maximal = 35} = vek;
     const dtoOut = [];
     let sex;
@@ -259,7 +259,7 @@ export function main(dtoIn) {
             jmeno = randomPrvek(jmenaZ) + " " + prijmeniV[1];
         }
         dtoOut.push({
-            pohlavi: sex,
+            gender: sex,
             narozen: randomCas(minimal, maximal),
             jmeno: jmeno,
             uvazek: randomPrvek(uvazek).typZ
