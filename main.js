@@ -212,7 +212,7 @@ funkce pro vytvoření náhodného datumu
 @param {number} minimal - minimální věk
 @param {number} maximal - maximální věk
 */
-const randomCas = (minimal, maximal) => {
+const randomCas = (minimal = 19, maximal = 35) => {
     const teď = new Date();
     const minvek = new Date(
         teď.getFullYear() - maximal,
@@ -243,7 +243,7 @@ const randomCas = (minimal, maximal) => {
  */
 export function main(dtoIn) {
     const {count, vek = {} } = dtoIn;
-    const {min: minimal, max: maximal} = vek;
+    const {min: minimal = 19, max: maximal = 35} = vek;
     const dtoOut = [];
     let sex;
     let jmeno;
