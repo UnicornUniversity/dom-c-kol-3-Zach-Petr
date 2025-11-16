@@ -209,12 +209,12 @@ funkce pro vytvoření náhodného datumu
 */
 const randomCas = (minimal = 19, maximal = 35) => {
     const teď = new Date();
-    const minvek = new Date(
+    const maxvek = new Date(
         teď.getFullYear() - maximal,
         teď.getMonth(),
         teď.getDate() + 1,0, 0 ,0, 0
     );
-    const maxvek = new Date(
+    const minvek = new Date(
         teď.getFullYear() - minimal,
         teď.getMonth(),
         teď.getDate(),0, 0 ,0, 0
