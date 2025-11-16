@@ -94,15 +94,15 @@ funkce pro vytvoření náhodného datumu
 const randomCas = (minVek, maxVek) => {
     const ted = new Date();
     const minimal = new Date(
-        presentDate.getFullYear() - maxVek - 1,
-        presentDate.getMonth(),
-        presentDate.getDate() + 1,
+        ted.getFullYear() - maxVek - 1,
+        ted.getMonth(),
+        ted.getDate() + 1,
         0, 0, 0, 0
     );
     const maximal = new Date(
-        presentDate.getFullYear() - minVek,
-        presentDate.getMonth(),
-        presentDate.getDate(),
+        ted.getFullYear() - minVek,
+        ted.getMonth(),
+        ted.getDate(),
         0, 0, 0, 0
     );
     const randomDat =
@@ -131,8 +131,8 @@ const randomCas = (minVek, maxVek) => {
  */
 export function main(dtoIn) {
     const {count, vek = {} } = dtoIn;
-    const minimal = vek.minimal ?? vek.min ?? 19;
-    const maximal = vek.maximal ?? vek.max ?? 35;
+    const minVek = vek.min ?? 19;
+    const maxVek = vek.max ?? 35;
     const dtoOut = [];
     let sex;
     let jmeno;
@@ -143,7 +143,7 @@ export function main(dtoIn) {
     prijmeniV = sex === "male" ? randomPrvek(prijmeni)[0] : randomPrvek(prijmeni)[1];
         dtoOut.push({
             gender: sex,
-            birthdate: randomCas(minimal, maximal),
+            birthdate: randomCas(minVek, maxVek),
             name: jmeno,
             surname: prijmeniV,
             workload: randomPrvek(uvazek)
