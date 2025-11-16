@@ -27,12 +27,7 @@ const pohlavi = ["male", "female"];
 *konstanta, která slouží pro charakterizaci úvazek
 *@type {array{typZ: string}
 */
-const uvazek = [
-    {typZ: "Zkrácený úvazek na 10 hodin týdně"},
-    {typZ: "Zkrácený úvazek na 20 hodin týdně"},
-    {typZ: "Zkrácený úvazek na 30 hodin týdně"},
-    {typZ: "Plný úvazek"}
-];
+const uvazek = [10, 20, 30, 40];
 /**
 *konstanta, ve které jsou uloženy mužská jména
 *@type {string[]}
@@ -264,7 +259,6 @@ export function main(dtoIn) {
             birthdate: randomCas(minimal, maximal),
             name: jmeno,
             surname: prijmeniV,
-            workload: randomPrvek(uvazek).typZ
         });
     }
     return dtoOut;
