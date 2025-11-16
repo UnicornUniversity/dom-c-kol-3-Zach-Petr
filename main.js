@@ -256,14 +256,14 @@ export function main(dtoIn) {
         
         }
         else{
-            prijmeniV = randomPrvek(prijmeni)[1].;
+            prijmeniV = randomPrvek(prijmeni)[1];
             jmeno = randomPrvek(jmenaZ);
         }
         dtoOut.push({
             gender: sex,
             birthday: randomCas(minimal, maximal),
             name: jmeno,
-            surname: prijmeniV;
+            surname: prijmeniV,
             workload: randomPrvek(uvazek).typZ
         });
     }
