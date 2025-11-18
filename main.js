@@ -133,8 +133,9 @@ const randomCas = (minVek, maxVek) => {
  */
 export const main = (dtoIn) => {
     const { count, vek = {} } = dtoIn;
-    const minVek = vek.min ?? 19;
-    const maxVek = vek.max ?? 35;
+ const minVek = vek.min;
+const maxVek = vek.max;
+
 
     const dtoOut = [];
 
