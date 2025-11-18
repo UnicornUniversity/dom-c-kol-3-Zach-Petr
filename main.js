@@ -103,6 +103,13 @@ const randomPrvek = (array) => array[Math.floor(Math.random() * array.length)];
  * @returns {string} Datum narození v ISO formátu
  */
 const randomCas = (minVek, maxVek) => {
+     if (typeof minVek !== "number" || typeof maxVek !== "number") {
+        throw new Error("Věk musí být číslo");
+    }
+    if (minVek > maxVek) {
+        // Přehodíme hodnoty, aby byl min < max
+        [minVek, maxVek] = [maxVek, minVek];
+    }
     const ted = new Date();
     
     const nowUTC = Date.UTC(
