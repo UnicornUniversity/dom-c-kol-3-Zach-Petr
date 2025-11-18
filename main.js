@@ -140,8 +140,8 @@ const randomCas = (minVek, maxVek) => {
  */
 export const main = (dtoIn) => {
     const { count, vek = {} } = dtoIn;
- const minVek = typeof vek.min === "number" ? vek.min : 18;  // default min věk
-    const maxVek = typeof vek.max === "number" ? vek.max : 65;  // default max věk
+ const minVek = typeof vek.min === "number" ? vek.min : 19;  // default min věk
+    const maxVek = typeof vek.max === "number" ? vek.max : 35;  // default max věk
 
     const dtoOut = [];
 
