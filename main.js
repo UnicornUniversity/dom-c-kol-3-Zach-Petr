@@ -110,7 +110,7 @@ const randomCas = (minVek, maxVek) => {
         [minVek, maxVek] = [maxVek, minVek];
     }
     
-   const ted = Date.now();
+   const ted = globalThis.__TEST_NOW__ ? new Date(globalThis.__TEST_NOW__) : new Date();
 
     const yearMs = 365.25 * 24 * 60 * 60 * 1000;
 
