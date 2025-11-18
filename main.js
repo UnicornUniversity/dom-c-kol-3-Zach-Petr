@@ -114,8 +114,8 @@ const randomCas = (minVek, maxVek) => {
 
     const yearMs = 365.25 * 24 * 60 * 60 * 1000;
 
-    const minBirth = ted - maxVek * yearMs; 
-    const maxBirth = ted - minVek * yearMs; 
+    const minBirth = ted.getTime() - maxVek * yearMs; 
+    const maxBirth = ted.getTime() - minVek * yearMs; 
 
     const randomTime = minBirth + Math.random() * (maxBirth - minBirth);
 
