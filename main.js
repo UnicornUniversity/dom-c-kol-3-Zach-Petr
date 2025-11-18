@@ -98,8 +98,8 @@ const randomPrvek = (array) => array[Math.floor(Math.random() * array.length)];
  * Přesnost testů vyžaduje interval v milisekundách,
  * rok je počítán jako průměrný rok o délce 365.25 dní.
  *
- * @param {number} minVek - Minimální věk (nejmladší)
- * @param {number} maxVek - Maximální věk (nejstarší)
+ * @param {number} minVek - Minimální věk 
+ * @param {number} maxVek - Maximální věk 
  * @returns {string} Datum narození v ISO formátu
  */
 const randomCas = (minVek, maxVek) => {
@@ -110,12 +110,7 @@ const randomCas = (minVek, maxVek) => {
         [minVek, maxVek] = [maxVek, minVek];
     }
     
-   const ted = globalThis.__TEST_NOW__ ? new Date(globalThis.__TEST_NOW__) : new Date();
- if (globalThis.__TEST_NOW__) {
-        console.log("Test current time (__TEST_NOW__):", new Date(globalThis.__TEST_NOW__).toISOString());
-    } else {
-        console.log("No TEST_NOW, using real now:", new Date().toISOString());
-    }
+   const ted = new Date();
     const yearMs = 365.25 * 24 * 60 * 60 * 1000;
 
     const minBirth = ted.getTime() - maxVek * yearMs; 
