@@ -1,37 +1,38 @@
 //TODO add imports if needed
 //TODO doc
+
 /**
-*konstanta, která slouží pro vstupní data
-*@type {object}
-*@property {number} pocet -  je námi požadovaný počet zaměstnanců
-*@property {object} vek - věkové rozmezí
-*@property {number} vek.minimal -  minimální věk
-*@property {number} vek.maximal - maximální věk
-*/
-const dtoIn ={
+ * Konstanta sloužící pro vstupní data.
+ * @type {object}
+ * @property {number} count - Požadovaný počet zaměstnanců
+ * @property {object} vek - Věkové rozmezí
+ * @property {number} vek.min - Minimální věk
+ * @property {number} vek.max - Maximální věk
+ */
+const dtoIn = {
     count: 50,
     vek: {
         min: 19,
         max: 35
     }
 };
+
 /**
-*konstanta, která slouží pro generování pohlaví
-*@type {object}
-*@property {string} [0] - muž
-*@property {string} [1] - žena
-*/
+ * Pohlaví používaná při generování.
+ * @type {string[]}
+ */
 const pohlavi = ["male", "female"];
 
 /**
-*konstanta, která slouží pro charakterizaci úvazek
-*@type {array{typZ: string}
-*/
+ * Úvazky vyjádřené v procentech.
+ * @type {number[]}
+ */
 const uvazek = [10, 20, 30, 40];
+
 /**
-*konstanta, ve které jsou uloženy mužská jména
-*@type {string[]}
-*/
+ * Mužská jména.
+ * @type {string[]}
+ */
 const jmenaM = [
     "Jakub",
     "Jan",
@@ -44,10 +45,11 @@ const jmenaM = [
     "David",
     "Lukáš",
 ];
+
 /**
-*konstanta, ve které jsou uloženy ženská jména
-*@type {string[]}
-*/
+ * Ženská jména.
+ * @type {string[]}
+ */
 const jmenaZ = [
     "Jana",
     "Eva",
@@ -60,10 +62,11 @@ const jmenaZ = [
     "Kateřina",
     "Radka"
 ];
+
 /**
-*konstanta, pole, dělící se na další pole obsahující mužský a ženský rod
-*@type {string[[],[]]}
-*/
+ * Pole dvojic příjmení [muž, žena].
+ * @type {Array<[string,string]>}
+ */
 const prijmeni = [
     ["Novotný", "Novotná"],
     ["Dvořák", "Dvořáková"],
@@ -80,69 +83,69 @@ const prijmeni = [
     ["Fiala", "Fialová"],
     ["Sedláček", "Sedláčková"],
     ["Šimek", "Šimková"]
-]
+];
+
 /**
-funkce pro vytvoření náhodného prvku
-@param {array} - to z čeho chceme vybírat
-*/
+ * Vrátí náhodný prvek z pole.
+ * @param {Array} array - Pole, ze kterého se vybírá
+ * @returns {*} Náhodný prvek
+ */
 const randomPrvek = (array) => array[Math.floor(Math.random() * array.length)];
+
 /**
-funkce pro vytvoření náhodného datumu
-@param {number} minimal - minimální věk
-@param {number} maximal - maximální věk
-*/
+ * Vygeneruje náhodné datum narození tak,
+ * aby výsledný věk byl v intervalu <minVek, maxVek>.
+ * Přesnost testů vyžaduje interval v milisekundách,
+ * rok je počítán jako průměrný rok o délce 365.25 dní.
+ *
+ * @param {number} minVek - Minimální věk (nejmladší)
+ * @param {number} maxVek - Maximální věk (nejstarší)
+ * @returns {string} Datum narození v ISO formátu
+ */
 const randomCas = (minVek, maxVek) => {
-    const ted = new Date();
+    const now = Date.now();
+    const yearMs = 365.25 * 24 * 60 * 60 * 1000;
 
-    // Převod věku na milisekundy (průměrný rok = 365.25 dní)
-    const minMs = minVek * 365.25 * 24 * 60 * 60 * 1000;
-    const maxMs = maxVek * 365.25 * 24 * 60 * 60 * 1000;
+    // Nejméně starý (nejmladší povolený člověk)
+    const youngestBirth = now - minVek * yearMs;
 
-    // Náhodný věk v milisekundách
-    const randomMs = minMs + Math.random() * (maxMs - minMs);
+    // Nejstarší povolený člověk
+    const oldestBirth = now - maxVek * yearMs;
 
-    // Výpočet data narození
-    const narozeni = new Date(ted.getTime() - randomMs);
-    return narozeni.toISOString();
+    // Náhodný čas v intervalu [oldestBirth, youngestBirth]
+    const randomTimestamp =
+        oldestBirth + Math.random() * (youngestBirth - oldestBirth);
+
+    return new Date(randomTimestamp).toISOString();
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
 /**
- * The main function which calls the application. 
- * Please, add specific description here for the application purpose.
- * @param {object} dtoIn contains count of employees, age limit of employees {min, max}
- * @returns {Array} of employes
+ * Hlavní funkce generující zaměstnance.
+ * @param {object} dtoIn - Obsahuje count a věkové rozmezí
+ * @returns {Array<object>} Pole zaměstnanců
  */
 export const main = (dtoIn) => {
-    const {count, vek = {} } = dtoIn;
+    const { count, vek = {} } = dtoIn;
     const minVek = vek.min ?? 19;
     const maxVek = vek.max ?? 35;
+
     const dtoOut = [];
-    let sex;
-    let jmeno;
-    let prijmeniV;
-    for(let i = 0; i < count; i++){
-        sex = randomPrvek(pohlavi);
-     jmeno = sex === "male" ? randomPrvek(jmenaM) : randomPrvek(jmenaZ);
-    prijmeniV = sex === "male" ? randomPrvek(prijmeni)[0] : randomPrvek(prijmeni)[1];
+
+    for (let i = 0; i < count; i++) {
+        const gender = randomPrvek(pohlavi);
+        const name = gender === "male" ? randomPrvek(jmenaM) : randomPrvek(jmenaZ);
+
+        const surnamePair = randomPrvek(prijmeni);
+        const surname = gender === "male" ? surnamePair[0] : surnamePair[1];
+
         dtoOut.push({
-            gender: sex,
+            gender,
             birthdate: randomCas(minVek, maxVek),
-            name: jmeno,
-            surname: prijmeniV,
-            workload: randomPrvek(uvazek)
+            name,
+            surname,
+            workload: randomPrvek(uvazek),
         });
     }
+
     return dtoOut;
-}
+};
