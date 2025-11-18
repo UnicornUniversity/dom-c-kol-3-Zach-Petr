@@ -103,21 +103,28 @@ const randomPrvek = (array) => array[Math.floor(Math.random() * array.length)];
  * @returns {string} Datum narození v ISO formátu
  */
 const randomCas = (minVek, maxVek) => {
-    const now = Date.now();
+    const ted = new Date();
+    
+    const nowUTC = Date.UTC(
+        ted.getUTCFullYear(),
+        ted.getUTCMonth(),
+        ted.getUTCDate(),
+        ted.getUTCHours(),
+        ted.getUTCMinutes(),
+        ted.getUTCSeconds(),
+        ted.getUTCMilliseconds()
+    );
+
     const yearMs = 365.25 * 24 * 60 * 60 * 1000;
 
-    // Nejméně starý (nejmladší povolený člověk)
-    const youngestBirth = now - minVek * yearMs;
+    const minBirth = nowUTC - maxVek * yearMs; // nejstarší možný
+    const maxBirth = nowUTC - minVek * yearMs; // nejmladší možný
 
-    // Nejstarší povolený člověk
-    const oldestBirth = now - maxVek * yearMs;
+    const randomTime = minBirth + Math.random() * (maxBirth - minBirth);
 
-    // Náhodný čas v intervalu [oldestBirth, youngestBirth]
-    const randomTimestamp =
-        oldestBirth + Math.random() * (youngestBirth - oldestBirth);
-
-    return new Date(randomTimestamp).toISOString();
+    return new Date(randomTime).toISOString();
 };
+
 
 /**
  * Hlavní funkce generující zaměstnance.
