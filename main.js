@@ -107,25 +107,15 @@ const randomCas = (minVek, maxVek) => {
         throw new Error("Věk musí být číslo");
     }
     if (minVek > maxVek) {
-        // Přehodíme hodnoty, aby byl min < max
         [minVek, maxVek] = [maxVek, minVek];
     }
-    const ted = new Date();
     
-    const nowUTC = Date.UTC(
-        ted.getUTCFullYear(),
-        ted.getUTCMonth(),
-        ted.getUTCDate(),
-        ted.getUTCHours(),
-        ted.getUTCMinutes(),
-        ted.getUTCSeconds(),
-        ted.getUTCMilliseconds()
-    );
+   const ted = Date.now();
 
     const yearMs = 365.25 * 24 * 60 * 60 * 1000;
 
-    const minBirth = nowUTC - maxVek * yearMs; // nejstarší možný
-    const maxBirth = nowUTC - minVek * yearMs; // nejmladší možný
+    const minBirth = ted - maxVek * yearMs; 
+    const maxBirth = ted - minVek * yearMs; 
 
     const randomTime = minBirth + Math.random() * (maxBirth - minBirth);
 
@@ -148,9 +138,8 @@ export const main = (dtoIn) => {
     for (let i = 0; i < count; i++) {
         const gender = randomPrvek(pohlavi);
         const name = gender === "male" ? randomPrvek(jmenaM) : randomPrvek(jmenaZ);
-
-        const surnamePair = randomPrvek(prijmeni);
-        const surname = gender === "male" ? surnamePair[0] : surnamePair[1];
+        const prijmeniV = randomPrvek(prijmeni);
+        const surname = gender === "male" ? prijmeniV[0] : prijmeniV[1];
 
         dtoOut.push({
             gender,
