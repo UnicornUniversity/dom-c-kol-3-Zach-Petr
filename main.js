@@ -122,7 +122,7 @@ const randomCas = (minVek, maxVek) => {
  * The main function which calls the application. 
  * Please, add specific description here for the application purpose.
  * @param {object} dtoIn contains count of employees, age limit of employees {min, max}
- * @returns {Array} of employees
+ * @returns {Array} of employes
  */
 export const main = (dtoIn) => {
     const {count, vek = {} } = dtoIn;
