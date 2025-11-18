@@ -111,7 +111,11 @@ const randomCas = (minVek, maxVek) => {
     }
     
    const ted = globalThis.__TEST_NOW__ ? new Date(globalThis.__TEST_NOW__) : new Date();
-
+ if (globalThis.__TEST_NOW__) {
+        console.log("Test current time (__TEST_NOW__):", new Date(globalThis.__TEST_NOW__).toISOString());
+    } else {
+        console.log("No TEST_NOW, using real now:", new Date().toISOString());
+    }
     const yearMs = 365.25 * 24 * 60 * 60 * 1000;
 
     const minBirth = ted.getTime() - maxVek * yearMs; 
@@ -130,8 +134,8 @@ const randomCas = (minVek, maxVek) => {
  */
 export const main = (dtoIn) => {
     const { count, vek = {} } = dtoIn;
- const minVek = typeof vek.min === "number" ? vek.min : 19;  // default min věk
-    const maxVek = typeof vek.max === "number" ? vek.max : 35;  // default max věk
+ const minVek = typeof vek.min === "number" ? vek.min : 19;  
+    const maxVek = typeof vek.max === "number" ? vek.max : 35; 
 
     const dtoOut = [];
 
