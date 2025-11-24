@@ -97,7 +97,7 @@ const randomCas = (minVek, maxVek) => {
  * @param {object} dtoIn - Obsahuje count a age
  * @returns {Array<object>} Pole zaměstnanců
  */
-const main = (dtoIn) => {
+export const main = (dtoIn) => {
     if (!dtoIn.age || typeof dtoIn.age.min !== "number" || typeof dtoIn.age.max !== "number") {
         throw new Error("age.min a age.max musí být zadány");
     }
