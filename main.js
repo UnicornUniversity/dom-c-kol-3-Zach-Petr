@@ -109,11 +109,15 @@ export const main = (dtoIn) => {
     console.log("=== START main ===");
     console.log("Vstupní data dtoIn:", dtoIn);
 
-    const { count, vek } = dtoIn;
-    const minVek = (vek && typeof vek.min === "number") ? vek.min : 19;
-    const maxVek = (vek && typeof vek.max === "number") ? vek.max : 35;
+    // Použij věkový rozsah přímo z dtoIn.age, pokud existuje
+    if (!dtoIn.age || typeof dtoIn.age.min !== "number" || typeof dtoIn.age.max !== "number") {
+        throw new Error("age.min a age.max musí být zadány");
+    }
 
-    console.log("Použitý věkový rozsah:", { minVek, maxVek });
+    const minVek = dtoIn.age.min;
+    const maxVek = dtoIn.age.max;
+
+    console.log("Použitý věkový rozsah z dtoIn.age:", { minVek, maxVek });
 
     // Pokud test posílá konkrétní birthdates, použijeme je
     const birthdates = dtoIn.birthdates || [];
@@ -121,7 +125,7 @@ export const main = (dtoIn) => {
 
     birthdates.forEach((bd, index) => {
         const birthDateObj = new Date(bd);
-        const age = (today - birthDateObj) / (365.25 * 24 * 60 * 60 * 1000);
+        const age = (today - birthDateObj) / (365.25 * 24 * 60 * 60 * 1000); // věk v letech
         console.log(`Index ${index + 1}: birthdate = ${bd}, věk = ${age.toFixed(6)} let`);
     });
 
