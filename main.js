@@ -128,9 +128,11 @@ const randomCas = (minVek, maxVek) => {
  * @returns {Array<object>} Pole zaměstnanců
  */
 export const main = (dtoIn) => {
-    const { count, vek = {} } = dtoIn;
- const minVek = typeof vek.min === "number" ? vek.min : 19;  
-    const maxVek = typeof vek.max === "number" ? vek.max : 35; 
+   const { count, vek } = dtoIn;
+
+const minVek = (vek && typeof vek.min === "number") ? vek.min : 19;
+const maxVek = (vek && typeof vek.max === "number") ? vek.max : 35;
+
 
     const dtoOut = [];
 
