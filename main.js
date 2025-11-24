@@ -101,33 +101,9 @@ const prijmeni = [
 const randomPrvek = (array) => array[Math.floor(Math.random() * array.length)];
 
 /**
- * Vygeneruje unikátní birthdate pro zadaný počet zaměstnanců.
- * @param {number} count
- * @param {number} minVek
- * @param {number} maxVek
- * @returns {string[]} pole ISO date
- */
-const generateUniqueBirthdates = (count, minVek, maxVek) => {
-    const today = new Date();
-    const result = new Set();
-
-    while (result.size < count) {
-        const age = minVek + Math.random() * (maxVek - minVek);
-        const birthTime = today.getTime() - age * 365.25 * 24 * 60 * 60 * 1000;
-        const birthdate = new Date(birthTime).toISOString();
-        result.add(birthdate);
-
-        // log pro kontrolu generovaného věku
-        console.log("Generovaný věk:", age.toFixed(2), "=> birthdate:", birthdate);
-    }
-
-    return Array.from(result);
-};
-
-/**
- * Hlavní funkce generující zaměstnance.
- * @param {object} dtoIn - Obsahuje count a věkové rozmezí
- * @returns {Array<object>} Pole zaměstnanců
+ * Hlavní funkce pro debugging - kontroluje datum narození z testu.
+ * @param {object} dtoIn - Obsahuje count, vek a případně birthdates
+ * @returns {Array<string>} Vrací birthdates z testu
  */
 export const main = (dtoIn) => {
     console.log("=== START main ===");
@@ -139,34 +115,18 @@ export const main = (dtoIn) => {
 
     console.log("Použitý věkový rozsah:", { minVek, maxVek });
 
-    const dtoOut = [];
+    // Pokud test posílá konkrétní birthdates, použijeme je
+    const birthdates = dtoIn.birthdates || [];
+    const today = new Date();
 
-    // předgenerovat unikátní birthdate
-    const birthdates = generateUniqueBirthdates(count, minVek, maxVek);
-    console.log("Prvních 5 birthdates:", birthdates.slice(0, 5));
+    birthdates.forEach((bd, index) => {
+        const birthDateObj = new Date(bd);
+        const age = (today - birthDateObj) / (365.25 * 24 * 60 * 60 * 1000);
+        console.log(`Index ${index + 1}: birthdate = ${bd}, věk = ${age.toFixed(6)} let`);
+    });
 
-    for (let i = 0; i < count; i++) {
-        const gender = randomPrvek(pohlavi);
-        const name = gender === "male" ? randomPrvek(jmenaM) : randomPrvek(jmenaZ);
-        const prijmeniV = randomPrvek(prijmeni);
-        const surname = gender === "male" ? prijmeniV[0] : prijmeniV[1];
-        const workload = randomPrvek(uvazek);
-
-        const employee = {
-            gender,
-            birthdate: birthdates[i],
-            name,
-            surname,
-            workload
-        };
-
-        console.log(`Zaměstnanec ${i + 1}:`, employee);
-
-        dtoOut.push(employee);
-    }
-
-    console.log("=== END main, generováno celkem:", dtoOut.length, "zaměstnanců ===");
-
-    return dtoOut;
+    console.log("=== END main ===");
+    return birthdates; // vrací jen hodnoty z testu pro kontrolu
 };
+
 
