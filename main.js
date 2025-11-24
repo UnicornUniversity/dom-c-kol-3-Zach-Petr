@@ -105,11 +105,11 @@ const randomPrvek = (array) => array[Math.floor(Math.random() * array.length)];
 const randomCas = (minVek, maxVek) => {
     const today = new Date();
 
-    // vyber skutečný rok narození (celé číslo)
+    // vyber náhodný věk jako celé číslo
     const vek = Math.floor(minVek + Math.random() * (maxVek - minVek + 1));
 
     const birthYear = today.getFullYear() - vek;
-    const birthMonth = Math.floor(Math.random() * 12); 
+    const birthMonth = Math.floor(Math.random() * 12);
     const birthDay = Math.floor(Math.random() * 28) + 1;
 
     return new Date(birthYear, birthMonth, birthDay).toISOString();
@@ -130,13 +130,17 @@ const maxVek = (vek && typeof vek.max === "number") ? vek.max : 35;
 
 
     const dtoOut = [];
-
+const usedBirthdates = new Set();
     for (let i = 0; i < count; i++) {
         const gender = randomPrvek(pohlavi);
         const name = gender === "male" ? randomPrvek(jmenaM) : randomPrvek(jmenaZ);
         const prijmeniV = randomPrvek(prijmeni);
         const surname = gender === "male" ? prijmeniV[0] : prijmeniV[1];
-
+ let birthdate;
+        do {
+            birthdate = randomCas(minVek, maxVek);
+        } while (usedBirthdates.has(birthdate));
+        usedBirthdates.add(birthdate);
         dtoOut.push({
             gender,
             birthdate: randomCas(minVek, maxVek),
