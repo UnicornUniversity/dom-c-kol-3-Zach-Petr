@@ -1,5 +1,3 @@
-// TODO add imports if needed
-// TODO doc
 
 /**
  * Konstanta sloužící pro vstupní data.
@@ -17,10 +15,22 @@ const dtoIn = {
     }
 };
 
+/**
+ * Pole pohlaví 
+ * @type {string[]}
+ */
 const pohlavi = ["male", "female"];
 
+/**
+ * Pole možných pracovních úvazků v hodinách za týden.
+ * @type {number[]}
+ */
 const uvazek = [10, 20, 30, 40];
 
+/**
+ * Pole mužských jmen pro generování zaměstnanců.
+ * @type {string[]}
+ */
 const jmenaM = [
     "Jakub",
     "Jan",
@@ -34,6 +44,10 @@ const jmenaM = [
     "Lukáš",
 ];
 
+/**
+ * Pole ženských jmen pro generování zaměstnanců.
+ * @type {string[]}
+ */
 const jmenaZ = [
     "Jana",
     "Eva",
@@ -47,6 +61,11 @@ const jmenaZ = [
     "Radka",
 ];
 
+/**
+ * Pole příjmení.
+ * Každý prvek je pole [mužský rod, ženský rod].
+ * @type {Array<[string, string]>}
+ */
 const prijmeni = [
     ["Novotný", "Novotná"],
     ["Dvořák", "Dvořáková"],
@@ -65,6 +84,11 @@ const prijmeni = [
     ["Šimek", "Šimková"],
 ];
 
+/**
+ * Vrátí náhodný prvek z pole.
+ * @param {Array} array - Pole, ze kterého se vybírá náhodný prvek
+ * @returns {*} - Náhodný prvek z pole
+ */
 const randomPrvek = (array) => array[Math.floor(Math.random() * array.length)];
 
 /**
