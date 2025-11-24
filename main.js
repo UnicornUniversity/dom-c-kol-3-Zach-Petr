@@ -104,16 +104,15 @@ const randomPrvek = (array) => array[Math.floor(Math.random() * array.length)];
  */
 const randomCas = (minVek, maxVek) => {
     const today = new Date();
+    const currentYear = today.getFullYear();
 
-    // vyber náhodný věk jako celé číslo
-    const vek = Math.floor(minVek + Math.random() * (maxVek - minVek + 1));
+    // Vyber náhodný rok, aby věk byl v intervalu
+    const birthYear = currentYear - minVek - Math.floor(Math.random() * (maxVek - minVek + 1));
 
-    const birthYear = today.getFullYear() - vek;
-    const birthMonth = Math.floor(Math.random() * 12);
-    const birthDay = Math.floor(Math.random() * 28) + 1;
-
-    return new Date(birthYear, birthMonth, birthDay).toISOString();
+    // Nastav měsíc a den na 0 (leden 1), aby věk nepřesáhl maxVek
+    return new Date(birthYear, 0, 1).toISOString();
 };
+
 
 
 
