@@ -83,22 +83,19 @@ const randomPrvek = (array) => array[Math.floor(Math.random() * array.length)];
  */
 const generateUniqueBirthdates = (count, minVek, maxVek) => {
     const today = new Date();
-    const currentYear = today.getFullYear();
-    const allDates = [];
+    const result = new Set();
 
-    for (let year = currentYear - maxVek; year <= currentYear - minVek; year++) {
-        allDates.push(new Date(year, 0, 1).toISOString());
+    while (result.size < count) {
+        // náhodný věk včetně desetinných měsíců
+        const age = minVek + Math.random() * (maxVek - minVek);
+        const birthTime = today.getTime() - age * 365.25 * 24 * 60 * 60 * 1000;
+        const birthdate = new Date(birthTime).toISOString();
+        result.add(birthdate);
     }
 
-    // fallback na opakování, pokud count > allDates.length
-    const result = [];
-    for (let i = 0; i < count; i++) {
-        result.push(allDates[i % allDates.length]);
-    }
-
-    // zamíchat výsledky
-    return result.sort(() => Math.random() - 0.5);
+    return Array.from(result);
 };
+
 
 /**
  * Hlavní funkce generující zaměstnance.
