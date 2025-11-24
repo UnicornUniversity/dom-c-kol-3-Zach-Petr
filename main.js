@@ -101,36 +101,59 @@ const prijmeni = [
 const randomPrvek = (array) => array[Math.floor(Math.random() * array.length)];
 
 /**
- * Hlavní funkce pro debugging - kontroluje datum narození z testu.
- * @param {object} dtoIn - Obsahuje count, vek a případně birthdates
- * @returns {Array<string>} Vrací birthdates z testu
+ * Vygeneruje unikátní birthdate pro zadaný počet zaměstnanců.
+ * @param {number} count
+ * @param {number} minVek
+ * @param {number} maxVek
+ * @returns {string[]} pole ISO date
  */
-export const main = (dtoIn) => {
-    console.log("=== START main ===");
-    console.log("Vstupní data dtoIn:", dtoIn);
+const generateUniqueBirthdates = (count, minVek, maxVek) => {
+    const today = new Date();
+    const result = new Set();
 
-    // Použij věkový rozsah přímo z dtoIn.age, pokud existuje
-    if (!dtoIn.age || typeof dtoIn.age.min !== "number" || typeof dtoIn.age.max !== "number") {
-        throw new Error("age.min a age.max musí být zadány");
+    while (result.size < count) {
+        const age = minVek + Math.random() * (maxVek - minVek);
+        const birthTime = today.getTime() - age * 365.25 * 24 * 60 * 60 * 1000;
+        const birthdate = new Date(birthTime).toISOString();
+        result.add(birthdate);
     }
 
-    const minVek = dtoIn.age.min;
-    const maxVek = dtoIn.age.max;
+    return Array.from(result);
+};
 
-    console.log("Použitý věkový rozsah z dtoIn.age:", { minVek, maxVek });
+/**
+ * Hlavní funkce generující zaměstnance.
+ * @param {object} dtoIn - Obsahuje count a věkové rozmezí
+ * @returns {Array<object>} Pole zaměstnanců
+ */
+export const main = (dtoIn) => {
+    if (!dtoIn.vek || typeof dtoIn.vek.min !== "number" || typeof dtoIn.vek.max !== "number") {
+        throw new Error("vek.min a vek.max musí být zadány");
+    }
 
-    // Pokud test posílá konkrétní birthdates, použijeme je
-    const birthdates = dtoIn.birthdates || [];
-    const today = new Date();
+    const { count, vek } = dtoIn;
+    const minVek = vek.min;
+    const maxVek = vek.max;
 
-    birthdates.forEach((bd, index) => {
-        const birthDateObj = new Date(bd);
-        const age = (today - birthDateObj) / (365.25 * 24 * 60 * 60 * 1000); // věk v letech
-        console.log(`Index ${index + 1}: birthdate = ${bd}, věk = ${age.toFixed(6)} let`);
-    });
+    const dtoOut = [];
+    const birthdates = generateUniqueBirthdates(count, minVek, maxVek);
 
-    console.log("=== END main ===");
-    return birthdates; // vrací jen hodnoty z testu pro kontrolu
+    for (let i = 0; i < count; i++) {
+        const gender = randomPrvek(pohlavi);
+        const name = gender === "male" ? randomPrvek(jmenaM) : randomPrvek(jmenaZ);
+        const prijmeniV = randomPrvek(prijmeni);
+        const surname = gender === "male" ? prijmeniV[0] : prijmeniV[1];
+
+        dtoOut.push({
+            gender,
+            birthdate: birthdates[i],
+            name,
+            surname,
+            workload: randomPrvek(uvazek)
+        });
+    }
+
+    return dtoOut;
 };
 
 
