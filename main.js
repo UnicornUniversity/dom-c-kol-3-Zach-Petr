@@ -126,7 +126,6 @@ const main = (dtoIn) => {
     return dtoOut;
 };
 
-export { main };
 
 
 
