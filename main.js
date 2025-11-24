@@ -17,30 +17,10 @@ const dtoIn = {
     }
 };
 
-/**
- * Pohlaví používaná při generování.
- * @type {string[]}
- */
-const pohlavi = [
-    "male",
-    "female"
-];
+const pohlavi = ["male", "female"];
 
-/**
- * Úvazky vyjádřené v procentech.
- * @type {number[]}
- */
-const uvazek = [
-    10,
-    20,
-    30,
-    40
-];
+const uvazek = [10, 20, 30, 40];
 
-/**
- * Mužská jména.
- * @type {string[]}
- */
 const jmenaM = [
     "Jakub",
     "Jan",
@@ -51,13 +31,9 @@ const jmenaM = [
     "Vojtěch",
     "Ondřej",
     "David",
-    "Lukáš"
+    "Lukáš",
 ];
 
-/**
- * Ženská jména.
- * @type {string[]}
- */
 const jmenaZ = [
     "Jana",
     "Eva",
@@ -68,13 +44,9 @@ const jmenaZ = [
     "Růžena",
     "Anna",
     "Kateřina",
-    "Radka"
+    "Radka",
 ];
 
-/**
- * Pole dvojic příjmení [muž, žena].
- * @type {Array<[string,string]>}
- */
 const prijmeni = [
     ["Novotný", "Novotná"],
     ["Dvořák", "Dvořáková"],
@@ -90,43 +62,42 @@ const prijmeni = [
     ["Beneš", "Benešová"],
     ["Fiala", "Fialová"],
     ["Sedláček", "Sedláčková"],
-    ["Šimek", "Šimková"]
+    ["Šimek", "Šimková"],
 ];
 
-/**
- * Vrátí náhodný prvek z pole.
- * @param {Array} array - Pole, ze kterého se vybírá
- * @returns {*} Náhodný prvek
- */
 const randomPrvek = (array) => array[Math.floor(Math.random() * array.length)];
 
 /**
- * Vygeneruje unikátní birthdate pro zadaný počet zaměstnanců.
- * @param {number} count
+ * Generuje náhodné datum narození podle min/max věku
  * @param {number} minVek
  * @param {number} maxVek
- * @returns {string[]} pole ISO date
+ * @returns {string} ISO datum
  */
-const generateUniqueBirthdates = (count, minVek, maxVek) => {
-    const today = new Date();
-    const result = new Set();
-
-    while (result.size < count) {
-        const age = minVek + Math.random() * (maxVek - minVek);
-        const birthTime = today.getTime() - age * 365.25 * 24 * 60 * 60 * 1000;
-        const birthdate = new Date(birthTime).toISOString();
-        result.add(birthdate);
+const randomCas = (minVek, maxVek) => {
+    if (typeof minVek !== "number" || typeof maxVek !== "number") {
+        throw new Error("Věk musí být číslo");
+    }
+    if (minVek > maxVek) {
+        [minVek, maxVek] = [maxVek, minVek];
     }
 
-    return Array.from(result);
+    const ted = new Date();
+    const yearMs = 365.25 * 24 * 60 * 60 * 1000;
+
+    const minBirth = ted.getTime() - maxVek * yearMs;
+    const maxBirth = ted.getTime() - minVek * yearMs;
+
+    const randomTime = minBirth + Math.random() * (maxBirth - minBirth);
+
+    return new Date(randomTime).toISOString();
 };
 
 /**
- * Hlavní funkce generující zaměstnance.
- * @param {object} dtoIn - Obsahuje count a věkové rozmezí
+ * Hlavní funkce generující zaměstnance
+ * @param {object} dtoIn - Obsahuje count a age
  * @returns {Array<object>} Pole zaměstnanců
  */
-export const main = (dtoIn) => {
+const main = (dtoIn) => {
     if (!dtoIn.age || typeof dtoIn.age.min !== "number" || typeof dtoIn.age.max !== "number") {
         throw new Error("age.min a age.max musí být zadány");
     }
@@ -136,7 +107,6 @@ export const main = (dtoIn) => {
     const maxVek = age.max;
 
     const dtoOut = [];
-    const birthdates = generateUniqueBirthdates(count, minVek, maxVek);
 
     for (let i = 0; i < count; i++) {
         const gender = randomPrvek(pohlavi);
@@ -146,15 +116,17 @@ export const main = (dtoIn) => {
 
         dtoOut.push({
             gender,
-            birthdate: birthdates[i],
+            birthdate: randomCas(minVek, maxVek), // generuje datum podle zadaného rozsahu
             name,
             surname,
-            workload: randomPrvek(uvazek)
+            workload: randomPrvek(uvazek),
         });
     }
 
     return dtoOut;
 };
+
+export { main };
 
 
 
