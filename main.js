@@ -104,8 +104,9 @@ const generateUniqueBirthdates = (count, minVek, maxVek) => {
  */
 export const main = (dtoIn) => {
     const { count, vek } = dtoIn;
-    const minVek = (vek && typeof vek.min === "number") ? vek.min : 19;
-    const maxVek = (vek && typeof vek.max === "number") ? vek.max : 35;
+   if (!vek || typeof vek.min !== "number" || typeof vek.max !== "number") {
+        throw new Error("Vek.min a vek.max musí být zadány");
+    }
 
     const dtoOut = [];
 
