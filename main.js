@@ -93,8 +93,8 @@ const randomPrvek = (array) => array[Math.floor(Math.random() * array.length)];
 
 /**
  * Generuje náhodné datum narození podle min/max věku
- * @param {number} minVek
- * @param {number} maxVek
+ * @param {number} minVek - min věk osoby
+ * @param {number} maxVek - max věk osoby
  * @returns {string} ISO datum
  */
 const randomCas = (minVek, maxVek) => {
