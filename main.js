@@ -5,13 +5,13 @@
  * Konstanta sloužící pro vstupní data.
  * @type {object}
  * @property {number} count - Požadovaný počet zaměstnanců
- * @property {object} vek - Věkové rozmezí
- * @property {number} vek.min - Minimální věk
- * @property {number} vek.max - Maximální věk
+ * @property {object} age - Věkové rozmezí
+ * @property {number} age.min - Minimální věk
+ * @property {number} age.max - Maximální věk
  */
 const dtoIn = {
     count: 50,
-    vek: {
+    age: {
         min: 19,
         max: 35
     }
@@ -127,13 +127,13 @@ const generateUniqueBirthdates = (count, minVek, maxVek) => {
  * @returns {Array<object>} Pole zaměstnanců
  */
 export const main = (dtoIn) => {
-    if (!dtoIn.vek || typeof dtoIn.vek.min !== "number" || typeof dtoIn.vek.max !== "number") {
-        throw new Error("vek.min a vek.max musí být zadány");
+    if (!dtoIn.age || typeof dtoIn.age.min !== "number" || typeof dtoIn.age.max !== "number") {
+        throw new Error("age.min a age.max musí být zadány");
     }
 
-    const { count, vek } = dtoIn;
-    const minVek = vek.min;
-    const maxVek = vek.max;
+    const { count, age } = dtoIn;
+    const minVek = age.min;
+    const maxVek = age.max;
 
     const dtoOut = [];
     const birthdates = generateUniqueBirthdates(count, minVek, maxVek);
@@ -155,5 +155,6 @@ export const main = (dtoIn) => {
 
     return dtoOut;
 };
+
 
 
