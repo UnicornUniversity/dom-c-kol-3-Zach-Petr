@@ -34,16 +34,7 @@ const uvazek = [10, 20, 30, 40];
  * @type {string[]}
  */
 const jmenaM = [
-    "Jakub",
-    "Jan",
-    "Tomáš",
-    "Adam",
-    "Matyáš",
-    "Filip",
-    "Vojtěch",
-    "Ondřej",
-    "David",
-    "Lukáš",
+    "Jakub","Jan","Tomáš","Adam","Matyáš","Filip","Vojtěch","Ondřej","David","Lukáš"
 ];
 
 /**
@@ -51,16 +42,7 @@ const jmenaM = [
  * @type {string[]}
  */
 const jmenaZ = [
-    "Jana",
-    "Eva",
-    "Renata",
-    "Martina",
-    "Božena",
-    "Daniela",
-    "Růžena",
-    "Anna",
-    "Kateřina",
-    "Radka"
+    "Jana","Eva","Renata","Martina","Božena","Daniela","Růžena","Anna","Kateřina","Radka"
 ];
 
 /**
@@ -93,39 +75,30 @@ const prijmeni = [
 const randomPrvek = (array) => array[Math.floor(Math.random() * array.length)];
 
 /**
- * Vygeneruje náhodné datum narození tak,
- * aby výsledný věk byl v intervalu <minVek, maxVek>.
- * Přesnost testů vyžaduje interval v milisekundách,
- * rok je počítán jako průměrný rok o délce 365.25 dní.
- *
- * @param {number} minVek - Minimální věk 
- * @param {number} maxVek - Maximální věk 
- * @returns {string} Datum narození v ISO formátu
+ * Vygeneruje unikátní birthdate pro zadaný počet zaměstnanců.
+ * @param {number} count
+ * @param {number} minVek
+ * @param {number} maxVek
+ * @returns {string[]} pole ISO date
  */
 const generateUniqueBirthdates = (count, minVek, maxVek) => {
     const today = new Date();
     const currentYear = today.getFullYear();
     const allDates = [];
 
-    // vytvoří všechny možné birthdate (dny pevně 1.1, měsíce pevně 0)
     for (let year = currentYear - maxVek; year <= currentYear - minVek; year++) {
         allDates.push(new Date(year, 0, 1).toISOString());
     }
 
-    // pokud chceme víc než dostupných dat, fallback na duplicitní
+    // fallback na opakování, pokud count > allDates.length
     const result = [];
     for (let i = 0; i < count; i++) {
-        const date = allDates[i % allDates.length]; // opakujeme, pokud je potřeba
-        result.push(date);
+        result.push(allDates[i % allDates.length]);
     }
 
     // zamíchat výsledky
     return result.sort(() => Math.random() - 0.5);
 };
-
-
-
-
 
 /**
  * Hlavní funkce generující zaměstnance.
@@ -133,32 +106,30 @@ const generateUniqueBirthdates = (count, minVek, maxVek) => {
  * @returns {Array<object>} Pole zaměstnanců
  */
 export const main = (dtoIn) => {
-   const { count, vek } = dtoIn;
-
-const minVek = (vek && typeof vek.min === "number") ? vek.min : 19;
-const maxVek = (vek && typeof vek.max === "number") ? vek.max : 35;
-
+    const { count, vek } = dtoIn;
+    const minVek = (vek && typeof vek.min === "number") ? vek.min : 19;
+    const maxVek = (vek && typeof vek.max === "number") ? vek.max : 35;
 
     const dtoOut = [];
-const usedBirthdates = new Set();
+
+    // předgenerovat unikátní birthdate
+    const birthdates = generateUniqueBirthdates(count, minVek, maxVek);
+
     for (let i = 0; i < count; i++) {
         const gender = randomPrvek(pohlavi);
         const name = gender === "male" ? randomPrvek(jmenaM) : randomPrvek(jmenaZ);
         const prijmeniV = randomPrvek(prijmeni);
         const surname = gender === "male" ? prijmeniV[0] : prijmeniV[1];
- let birthdate;
-        do {
-            birthdate = randomCas(minVek, maxVek);
-        } while (usedBirthdates.has(birthdate));
-        usedBirthdates.add(birthdate);
+
         dtoOut.push({
             gender,
-            birthdate: randomCas(minVek, maxVek),
+            birthdate: birthdates[i],
             name,
             surname,
-            workload: randomPrvek(uvazek),
+            workload: randomPrvek(uvazek)
         });
     }
 
     return dtoOut;
 };
+
