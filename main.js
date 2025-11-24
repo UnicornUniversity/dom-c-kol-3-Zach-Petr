@@ -103,23 +103,18 @@ const randomPrvek = (array) => array[Math.floor(Math.random() * array.length)];
  * @returns {string} Datum narození v ISO formátu
  */
 const randomCas = (minVek, maxVek) => {
-     if (typeof minVek !== "number" || typeof maxVek !== "number") {
-        throw new Error("Věk musí být číslo");
-    }
-    if (minVek > maxVek) {
-        [minVek, maxVek] = [maxVek, minVek];
-    }
-    
-   const ted = new Date();
-    const yearMs = 365.25 * 24 * 60 * 60 * 1000;
+    const today = new Date();
 
-    const minBirth = ted.getTime() - maxVek * yearMs; 
-    const maxBirth = ted.getTime() - minVek * yearMs; 
+    // vyber skutečný rok narození (celé číslo)
+    const vek = Math.floor(minVek + Math.random() * (maxVek - minVek + 1));
 
-    const randomTime = minBirth + Math.random() * (maxBirth - minBirth);
+    const birthYear = today.getFullYear() - vek;
+    const birthMonth = Math.floor(Math.random() * 12); 
+    const birthDay = Math.floor(Math.random() * 28) + 1;
 
-    return new Date(randomTime).toISOString();
+    return new Date(birthYear, birthMonth, birthDay).toISOString();
 };
+
 
 
 /**
