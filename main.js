@@ -102,16 +102,27 @@ const randomPrvek = (array) => array[Math.floor(Math.random() * array.length)];
  * @param {number} maxVek - Maximální věk 
  * @returns {string} Datum narození v ISO formátu
  */
-const randomCas = (minVek, maxVek) => {
+const generateUniqueBirthdates = (count, minVek, maxVek) => {
     const today = new Date();
     const currentYear = today.getFullYear();
+    const allDates = [];
 
-    // Vyber náhodný rok, aby věk byl v intervalu
-    const birthYear = currentYear - minVek - Math.floor(Math.random() * (maxVek - minVek + 1));
+    // vytvoří všechny možné birthdate (dny pevně 1.1, měsíce pevně 0)
+    for (let year = currentYear - maxVek; year <= currentYear - minVek; year++) {
+        allDates.push(new Date(year, 0, 1).toISOString());
+    }
 
-    // Nastav měsíc a den na 0 (leden 1), aby věk nepřesáhl maxVek
-    return new Date(birthYear, 0, 1).toISOString();
+    // pokud chceme víc než dostupných dat, fallback na duplicitní
+    const result = [];
+    for (let i = 0; i < count; i++) {
+        const date = allDates[i % allDates.length]; // opakujeme, pokud je potřeba
+        result.push(date);
+    }
+
+    // zamíchat výsledky
+    return result.sort(() => Math.random() - 0.5);
 };
+
 
 
 
